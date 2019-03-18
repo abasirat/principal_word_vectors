@@ -1,3 +1,13 @@
+/**
+ *
+ * This program is written by Ali Basirat ali.basirat@lingfil.uu.se as part of the 
+ * project Principla Word Vectors at http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866
+ * You are allowed to modify or distribute it if you keep this header part
+ * 
+ * Part of the code is inspired by the implementation of GloVe https://nlp.stanford.edu/projects/glove/
+ *
+ **/
+
 #ifndef __BASIC_HEADER_H
 #define __BASIC_HEADER_H
 

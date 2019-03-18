@@ -1,3 +1,11 @@
+/**
+ *
+ * This program is written by Ali Basirat ali.basirat@lingfil.uu.se as part of the 
+ * project Principla Word Vectors at http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866
+ * You are allowed to modify or distribute it if you keep this header part
+ * 
+ **/
+
 #ifndef __MATRIX_C__
 #define __MATRIX_C__
 

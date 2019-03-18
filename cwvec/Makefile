@@ -11,14 +11,13 @@ CFLAGS = -Wall -O3 -fPIC -I$(INC)
 LIBS = -lm
 DEFINE = #-D_USE_LINKED_LIST_
 
-all:	$(CWVEC) $(PRINT_OVERFLOW)
+all: $(OUT_DIR) $(CWVEC) $(PRINT_OVERFLOW)
 
 OBJECTS = $(OBJ)/str_norm.o $(OBJ)/hash.o $(OBJ)/matrix.o $(OBJ)/tools.o $(OBJ)/vocab_count.o $(OBJ)/contextual_matrix.o $(OBJ)/options.o $(OBJ)/cwvec.o
- 
-SUFFIXES = .c .h
- 
 
-$(CWVEC): 	$(OBJECTS)
+SUFFIXES = .c .h
+
+$(CWVEC): $(OBJECTS)
 	$(CC) -o $(BUILD)/cwvec $(CFLAGS) $(LIBS) $(OBJECTS) $(DEFINE)
 
 $(OBJ)/str_norm.o: $(SRC)/str_norm.c $(INC)/str_norm.h
