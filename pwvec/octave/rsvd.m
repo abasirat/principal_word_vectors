@@ -1,3 +1,11 @@
+%
+%
+% This program is written by Ali Basirat ali.basirat@lingfil.uu.se as part of the 
+% project Principla Word Vectors at http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866
+% You are allowed to modify or distribute it if you keep this header part
+% 
+%
+
 function [U S V Q]  = rsvd_1(A, k, q, K)
 %% A - E[A] ~ USV'
 %% The expectation is over the column vectors in A
