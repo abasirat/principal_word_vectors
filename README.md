@@ -75,7 +75,7 @@ use the following options
   
   Example of usage:
   ```bash
-  ./build/cwvec --input English.ann --corpus-type annotated -c indexed -o English.ann.cwvec -v 
+  ./build/cwvec --input test/dep_index.txt --corpus-type annotated -c indexed -o test/dep_index.bin -v 
   ```
   where:
   * `English.ann` is an annotated corpus
@@ -85,6 +85,6 @@ use the following options
   
  ```python
  import princ_wvec as pwvec
- princ_wvec = pwvec.PrincipalWordVectors(cooc_file='English.ann.cwvec')
+ princ_wvec = pwvec.PrincipalWordVector(cooc_file='../../cwvec/test/dep_index.bin', embeddings_file='../../cwvec/test/dep_index.wembed')
  ```
   
