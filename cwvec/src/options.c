@@ -13,7 +13,7 @@
 //extern char* WARNING_MESSAGE ;
 
 void print_usage() {
-  fprintf(stderr,"options --input <file.txt>\n") ;
+  fprintf(stderr,"cwvec --input <file.txt> options\n") ;
   fprintf(stderr,"use the following options\n") ;
   fprintf(stderr, "\t--corpus-type\t\t'raw' corpus or 'annotated' corpus (default raw)\n") ;
   fprintf(stderr, "\t--input\t-i\tpath to input file\n") ;
