@@ -14,8 +14,8 @@ You should have two executable files in the directory cwvec/build
   * `print_overflow`: to display overflow files created during the construction of a contextual matrix
 
 The ELF file `cwvec` can process two types of corpus:
-  * raw corpus in which each line is a tokenised sentence
-  * annotated corpus in which each line is a word with features. The words of a sentence are placed in adjacent lines, and an empty line is between sentences. 
+  * a raw corpus in which each line is a tokenised sentence
+  * an annotated corpus in which each line is a word associated with its features. The words of a sentence are placed in adjacent lines, and an empty line is between sentences. 
   
   An example of a raw corpus is:
   ```
@@ -44,7 +44,7 @@ An example of an annotated corpus is:
 
 Note that the delimiter between the columns should be TAB.
 
-cwvec has the foloowing options:
+cwvec has the following options:
 
 ```
 $ ./build/cwvec --help
