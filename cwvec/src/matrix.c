@@ -253,8 +253,6 @@ int matrix_save(char* path, matrix_type* matrix, output_format_type output_forma
     return -3 ;
   }
 
-
-
   for ( h = 0 ; h < matrix->hgt ; h++ ) {
 
     // print the dense part
@@ -287,62 +285,62 @@ int matrix_save(char* path, matrix_type* matrix, output_format_type output_forma
     }
 
 
-    infid = (FILE**)my_malloc(sizeof(FILE*) * matrix->layer[h].overflow_file_counter) ;
-    queue = (buffer_item_id_type*)my_malloc(sizeof(buffer_item_id_type) * matrix->layer[h].overflow_file_counter) ;
-    for ( i = 0 ; i < (int)(matrix->layer[h].overflow_file_counter) ; i++ ) {
-      file_name = (char*)my_malloc(strlen(matrix->overflow_file) + 100) ;
-      sprintf(file_name, "%s_%zd_%zd.bin", matrix->overflow_file, h, i) ;
-      if ( ( infid[i] = fopen(file_name, "rb") ) == NULL ) {
-        sprintf(ERROR_MESSAGE ,"save_matrix: could not find %s!", file_name) ;
-        return -1 ;
-      }
-      if ( fread( &new, sizeof(buffer_item_type), 1, infid[i] ) != 1 ) {
-        sprintf(ERROR_MESSAGE ,"save_matrix: could not read the head of  %s!", file_name) ;
-        return -2 ;
-      }
-      new.id = i ;
-      insert(queue, new, i + 1) ;
-    }
-
-    /* Pop top node, save it in old to see if the next entry is a duplicate */
-    size = matrix->layer[h].overflow_file_counter ;
-    old = queue[0];
-    i = old.id ;
-    delete(queue, size);
-    fread(&new, sizeof(buffer_item_type), 1, infid[i]);
-    if(feof(infid[i])) size--;
-    else {
-        new.id = i;
-        insert(queue, new, size);
-    }
-
-    if(VERBOSE) fprintf(stderr, "Merging cooccurrence files: processed 0 lines.");
-    /* Repeatedly pop top node and fill priority queue until files have reached EOF */
-    while(size > 0) {
-        counter += merge_write(queue[0], &old, outfid); // Only count the lines written to file, not duplicates
-        if((counter%100000) == 0) if(VERBOSE) fprintf(stderr,"\033[39G%zd lines.",counter);
-        i = queue[0].id;
-        delete(queue, size);
-        fread(&new, sizeof(buffer_item_type), 1, infid[i]);
-        if(feof(infid[i])) { size--; fclose(infid[i]); }
-        else {
-            new.id = i;
-            insert(queue, new, size);
+    if ( matrix->layer[h].overflow_file_counter > 0) {
+      infid = (FILE**)my_malloc(sizeof(FILE*) * matrix->layer[h].overflow_file_counter) ;
+      queue = (buffer_item_id_type*)my_malloc(sizeof(buffer_item_id_type) * matrix->layer[h].overflow_file_counter) ;
+      for ( i = 0 ; i < (int)(matrix->layer[h].overflow_file_counter) ; i++ ) {
+        file_name = (char*)my_malloc(strlen(matrix->overflow_file) + 100) ;
+        sprintf(file_name, "%s_%zd_%zd.bin", matrix->overflow_file, h, i) ;
+        if ( ( infid[i] = fopen(file_name, "rb") ) == NULL ) {
+          sprintf(ERROR_MESSAGE ,"save_matrix: could not find %s!", file_name) ;
+          return -1 ;
         }
+        if ( fread( &new, sizeof(buffer_item_type), 1, infid[i] ) != 1 ) {
+          sprintf(ERROR_MESSAGE ,"save_matrix: could not read the head of  %s!", file_name) ;
+          return -2 ;
+        }
+        new.id = i ;
+        insert(queue, new, i + 1) ;
+      }
+
+      /* Pop top node, save it in old to see if the next entry is a duplicate */
+      size = matrix->layer[h].overflow_file_counter ;
+      old = queue[0];
+      i = old.id ;
+      delete(queue, size);
+      fread(&new, sizeof(buffer_item_type), 1, infid[i]);
+      if(feof(infid[i])) size--;
+      else {
+          new.id = i;
+          insert(queue, new, size);
+      }
+
+      if(VERBOSE) fprintf(stderr, "Merging cooccurrence files: processed 0 lines.");
+      /* Repeatedly pop top node and fill priority queue until files have reached EOF */
+      while(size > 0) {
+          counter += merge_write(queue[0], &old, outfid); // Only count the lines written to file, not duplicates
+          if((counter%100000) == 0) if(VERBOSE) fprintf(stderr,"\033[39G%zd lines.",counter);
+          i = queue[0].id;
+          delete(queue, size);
+          fread(&new, sizeof(buffer_item_type), 1, infid[i]);
+          if(feof(infid[i])) { size--; fclose(infid[i]); }
+          else {
+              new.id = i;
+              insert(queue, new, size);
+          }
+      }
+      fwrite(&old, sizeof(buffer_item_type), 1, outfid);
+      free(queue) ;
+      free(infid) ;
+
+      if(VERBOSE) fprintf(stderr,"\033[39G%zd lines.\n",counter);
+      if(VERBOSE) fprintf(stderr,"Removing temporary files ...\n") ;
+      for ( i = 0 ; i < (int)(matrix->layer[h].overflow_file_counter) ; i++ ) {
+        file_name = (char*)my_malloc(strlen(matrix->overflow_file) + 100) ;
+        sprintf(file_name, "%s_%zd_%zd.bin", matrix->overflow_file, h, i) ;
+        remove(file_name) ;
+      }
     }
-    fwrite(&old, sizeof(buffer_item_type), 1, outfid);
-    free(queue) ;
-    free(infid) ;
-
-
-    if(VERBOSE) fprintf(stderr,"\033[39G%zd lines.\n",counter);
-    if(VERBOSE) fprintf(stderr,"Removing temporary files ...\n") ;
-    for ( i = 0 ; i < (int)(matrix->layer[h].overflow_file_counter) ; i++ ) {
-      file_name = (char*)my_malloc(strlen(matrix->overflow_file) + 100) ;
-      sprintf(file_name, "%s_%zd_%zd.bin", matrix->overflow_file, h, i) ;
-      remove(file_name) ;
-    }
-
   }
   fclose(outfid) ;
 
