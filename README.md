@@ -76,6 +76,6 @@ use the following options
   
  ```python
  import cwvec
- princ_wvec = PrincipalWordVectors(cooc_file=corpus.cwvec)
+ princ_wvec = PrincipalWordVectors(cooc_file='corpus.cwvec')
  ```
   
