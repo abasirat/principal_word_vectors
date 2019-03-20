@@ -78,8 +78,8 @@ use the following options
   ./build/cwvec --input test/dep_index.txt --corpus-type annotated -c indexed -o test/dep_index.bin -v 
   ```
   where:
-  * `English.ann` is an annotated corpus
-  * `English.ann.cwvec` is the corresponding output contextual matrix
+  * `dep_index.txt` is an annotated corpus
+  * `dep_index.bin` is the corresponding output contextual matrix
 
   In addition to the contextual matrix, `cwvec` generates a list of vocabulary and features in two files specified by options `--vocab` and `--feature`.  
   
@@ -90,9 +90,11 @@ use the following options
  princ_wvec = pwvec.PrincipalWordVector(cooc_file='../../cwvec/test/dep_index.bin', embeddings_file='../../cwvec/test/dep_index.wvec')
  ```
  
-At this stage, the embeddings are in the file `../../cwvec/test/dep_index.wvec`. It should have the same number of lines as the vocabulary file `./../cwvec/test/dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
+At this stage, the embeddings are in the file `dep_index.bin`. It should have the same number of lines as the vocabulary file `dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
 
 ```bash
 paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
   awk '{printf($1) ; for (i=3;i<=NF;i++) printf(" %s", $i) ; printf("\n")}' > ../../cwvec/test/dep_index.wembed
 ```
+
+
