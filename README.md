@@ -99,6 +99,6 @@ paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
 
 # References
 
-## Ali Basirat (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
+#### Ali Basirat (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
 
 
