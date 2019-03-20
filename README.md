@@ -1,9 +1,13 @@
-Principal Word Vectors refer to a set of word vectors (word embeddings) that are built through performing a principal component analysis on a transformed contextual matrix (also known as co-occurrence matrix).
-The directory 'cwvec' (contextual word vectors) contains codes to construct a contextual matrix. 
-Change your directory to 'cwvec' and type make
+# Principal Word Vectors
 
+<strong>[Principal Word Vectors](http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866)</strong> refer to a set of word vectors (word embeddings) that are built through performing a principal component analysis on a transformed contextual matrix (also known as co-occurrence matrix).
+The directory `cwvec` (contextual word vectors) contains codes to construct a contextual matrix. 
+Change your directory to `cwvec` and type make
+
+```bash
 cd cwvec
 make
+```
 
 You should have two executable files in the directory cwvec/build
   * cwvec: to build a contextual matrix
