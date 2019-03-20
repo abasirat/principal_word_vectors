@@ -43,6 +43,8 @@ class PrincipalWordVector :
         raise("Invalid feature selection: %s" % (feature_selection))
 
       idx = np.array(idx[0:max_context]).flatten() 
+      np.savetxt(context_file, idx, fmt='%.0f')
+
       self.cooc = self.cooc[idx,:]
 
     if not context_file :
@@ -62,8 +64,8 @@ class PrincipalWordVector :
     assert(nc == princ_wvec.shape[0])
 
     header=str(princ_wvec.shape[0]) + " " + str(self.dim)
-    np.savetxt(embeddings_file, princ_wvec, header=header, comments='', fmt='%.5f') 
-    np.savetxt(context_file, idx, fmt='%.0f')
+    #np.savetxt(embeddings_file, princ_wvec, header=header, comments='', fmt='%.5f') 
+    np.savetxt(embeddings_file, princ_wvec, fmt='%.5f') 
     return
 
   def load_cooccurrence_matrix(self) :
