@@ -10,15 +10,15 @@ make
 ```
 
 You should have two executable files in the directory cwvec/build
-  * cwvec: to build a contextual matrix
-  * print_overflow: to display overflow files created during the construction of a contextual matrix
+  * `cwvec`: to build a contextual matrix
+  * `print_overflow`: to display overflow files created during the construction of a contextual matrix
 
-The ELF file cwvec can process two types of corpus:
+The ELF file `cwvec` can process two types of corpus:
   * raw corpus in which each line is a tokenised sentence
   * annotated corpus in which each line is a word with features. The words of a sentence are placed in adjacent lines, and an empty line is between sentences. 
   
   An example of a raw corpus is:
-  thats a pretty picture .
+  ```thats a pretty picture .```
   
   Each line of an annotated corpus should be in the following format:
 		
