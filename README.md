@@ -99,7 +99,7 @@ paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
 
 # References
 
-#### * Basirat, A., (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
-#### * Basirat, A., (2018), A Generalized Principal Component Analysis for Word Embedding, Basirat, A., The Seventh Swedish Language Technology Conference (SLTC), Stockholm, Sweden.
+* Basirat, A., (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
+* Basirat, A., (2018), A Generalized Principal Component Analysis for Word Embedding, Basirat, A., The Seventh Swedish Language Technology Conference (SLTC), Stockholm, Sweden.
 
 
