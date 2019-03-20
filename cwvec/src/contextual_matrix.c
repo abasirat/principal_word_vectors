@@ -421,7 +421,7 @@ int annotated_contextual_matrix(char *path, contextual_matrix_type* cnt_mat, boo
       "\033[0G%zu items. [progress: %1.2f%%, missed hit ratio: %1.2f%%, used_mem=%2.2f]\n", 
       progress, (float)(ftell(fid)*100.0/fsz), cnt_mat->matrix->miss_hit*100.0/(cnt_mat->matrix->miss_hit + cnt_mat->matrix->hit), 
       USED_MEM*1.0/OneGigabyte);
-
+ 
   free(lineptr) ;
   fclose(fid) ;
   return 0 ;

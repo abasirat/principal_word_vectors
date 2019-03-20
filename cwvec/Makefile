@@ -7,7 +7,8 @@ CWVEC = $(BUILD)/cwvec
 PRINT_OVERFLOW  = $(BUILD)/print_overflow
 
 CC = gcc
-CFLAGS = -Wall -O3 -fPIC -I$(INC)
+#CFLAGS = -Wall -O3 -fPIC -I$(INC)
+CFLAGS = -Wall -fPIC -I$(INC) -g
 LIBS = -lm
 DEFINE = #-D_USE_LINKED_LIST_
 
