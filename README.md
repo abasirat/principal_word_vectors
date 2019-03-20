@@ -75,7 +75,7 @@ use the following options
   
   Example of usage:
   ```bash
-  build/cwvec --input English.ann --corpus-type annotated -c indexed -o English.ann.cwvec -v 
+  ./build/cwvec --input English.ann --corpus-type annotated -c indexed -o English.ann.cwvec -v 
   ```
   where:
   * `English.ann` is an annotated corpus
