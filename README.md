@@ -97,4 +97,8 @@ paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
   awk '{printf($1) ; for (i=3;i<=NF;i++) printf(" %s", $i) ; printf("\n")}' > ../../cwvec/test/dep_index.wembed
 ```
 
+# References
+
+## Ali Basirat (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
+
 
