@@ -18,61 +18,59 @@ The ELF file `cwvec` can process two types of corpus:
   * annotated corpus in which each line is a word with features. The words of a sentence are placed in adjacent lines, and an empty line is between sentences. 
   
   An example of a raw corpus is:
-  ```thats a pretty picture .```
+  ```
+  thats a pretty picture .
+  ```
   
   Each line of an annotated corpus should be in the following format:
 		
+  ```
   id<TAB>word_form<TAB>contexts_ids<TAB>contextual_features
-
-'id' is an integer stating the position of a word in a sentence. It starts at 1
-
-'word_form' is a word form (usually normalised). We refer to this as the current word
-
-'contexts_ids' is a comma-separated list of integers referring to the ids of the contexts of the current word. Use 0 for the root of a dependency context
-
-'contextual_features' is a comma-separated list of categorical features associated with the current word. Note that the symbol ',' is a reserved character used as a split character 
+  ```
+where:
+* 'id' is an integer stating the position of a word in a sentence. It starts at 
+* 'word_form' is a word form (usually normalised). We refer to this as the current word
+* 'contexts_ids' is a comma-separated list of integers referring to the ids of the contexts of the current word. Use 0 for the root of a dependency context
+* 'contextual_features' is a comma-separated list of categorical features associated with the current word. Note that the symbol ',' is a reserved character used as a split character 
 
 An example of an annotated corpus is: 
-
+```
 1	thats	4	that,NOUN,NNS,nsubj
-
 2	a	4	a,DET,DT,det
-
 3	pretty	4	pretty,ADJ,JJ,amod
-
 4	picture	0	picture,NOUN,NN,root
-
 5	.	4	.,PUNCT,.,punct
-
+```
 
 Note that the delimiter between the columns should be TAB.
 
 cwvec has the foloowing options:
 
+```
 $ ./build/cwvec --help
 options --input <file.txt>
 use the following options
-    --corpus-type   'raw' corpus or 'annotated' corpus (default raw)
-    --input     -i  path to input file
-    --output    -o  path to output file (default input.bin or input.txt)
-    --vocab        path to vocabulary file (default input.vcb)
-    --feature      path to feature file (default input.feat)
-    --normalize -n word normalization (all letters are converted to lowecase format and all sequences of digits are replaced with <num>
-    --context-type -c the context type, bow (bag-of-word), pow (position-of-word), neighbourhood, or indexed (default bow)
-    --load-vocab        load words from vocab file
-    --load-features     load features from feature file
-    --output-format -f 'bin' or 'txt' output (default bin)
-    --max-memory    -m  the amount of memory (in gigabyte) used for fast matrix access. (default 1.0)
-    --overflow-file      overflow file prefix (default overflow)
-    --min-vcount         minimum word frequency. Words with frequency smaller than min-vcount are assumed as unknown word (default 1)
-    --max-vocab          maximum number of voabulary plus one used for unknown words. Set 0 for infinity. (default 0)
-    --min-fcount         minimum feature frequency. Feature with frequency smaller than min-fcount are assumed as unknown feature (default 1).
-    --max-feature        maximum number of features plus one used for unknown feature. Set 0 for infinity. (default 0)
-    --window     -w      window size (default -1)
-    --symmetric          symmetric window of size window_size)
-    --print              print cooccurrence matrix on standard output
-    --verbose    -v      enable verbose
-    --help       -h      print this message
-  
+    --corpus-type 	'raw' corpus or 'annotated' corpus (default raw)
+    --input	-i	path to input file
+    --output	-o	path to output file (default input.bin or input.txt)
+    --vocab		path to vocabulary file (default input.vcb)
+    --feature		path to feature file (default input.feat)
+    --normalize	-n	word normalization (all letters are converted to lowecase format and all sequences of digits are replaced with <num>
+    --context-type	-c	the context type, bow (bag-of-word), pow (position-of-word), neighbourhood, or indexed (default bow)
+    --load-vocab	load words from vocab file
+    --load-features	load features from feature file
+    --output-format	-f	'bin' or 'txt' output (default bin)
+    --max-memory	-m	the amount of memory (in gigabyte) used for fast matrix access. (default 1.0)
+    --overflow-file	overflow file prefix (default overflow)
+    --min-vcount	minimum word frequency. Words with frequency smaller than min-vcount are assumed as unknown word (default 1)
+    --max-vocab		maximum number of voabulary plus one used for unknown words. Set 0 for infinity. (default 0)
+    --min-fcount	minimum feature frequency. Feature with frequency smaller than min-fcount are assumed as unknown feature (default 1).
+    --max-feature	maximum number of features plus one used for unknown feature. Set 0 for infinity. (default 0)
+    --window	-w	window size (default -1)
+    --symmetric		symmetric window of size window_size)
+    --print		print cooccurrence matrix on standard output
+    --verbose	-v	enable verbose
+    --help	-h	print this message
+  ```
   Once a contextual matrix (the output of cwvec) is built, the principal word vectors are generated by performing a PCA on that. This can be done by the codes available at the pwvec directory. There are two implmentations, one is a python code and the other an octave code. If you are a python user import princ_wvec and contsruct an object based on the class PrincipalWordVectors. Set the cooc_file parameter to the path of the contextual matrix built by cwvec. 
   
