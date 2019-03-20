@@ -21,20 +21,24 @@ The ELF file cwvec can process two types of corpus:
   id<TAB>word_form<TAB>contexts_ids<TAB>contextual_features
 
 'id' is an integer stating the position of a word in a sentence. It starts at 1
+
 'word_form' is a word form (usually normalised). We refer to this as the current word
+
 'contexts_ids' is a comma-separated list of integers referring to the ids of the contexts of the current word. Use 0 for the root of a dependency context
+
 'contextual_features' is a comma-separated list of categorical features associated with the current word. Note that the symbol ',' is a reserved character used as a split character 
 
 An example of an annotated corpus is: 
-1       thats   4       that,NOUN,NNS,nsubj
 
-2       a       4       a,DET,DT,det
+1	thats	4	that,NOUN,NNS,nsubj
 
-3       pretty  4       pretty,ADJ,JJ,amod
+2	a	4	a,DET,DT,det
 
-4       picture 0       picture,NOUN,NN,root
+3	pretty	4	pretty,ADJ,JJ,amod
 
-5       .       4       .,PUNCT,.,punct
+4	picture	0	picture,NOUN,NN,root
+
+5	.	4	.,PUNCT,.,punct
 
 
 Note that the delimiter between the columns should be TAB.
