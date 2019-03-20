@@ -93,7 +93,6 @@ use the following options
 At this stage, the embeddings are in the file `../../cwvec/test/dep_index.wvec`. It should have the same number of lines as the vocabulary file `./../cwvec/test/dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
 
 ```bash
-paste ./../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
-  sed 's/\t//' |\
+paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
   awk '{printf($1) ; for (i=3;i<=NF;i++) printf(" %s", $i) ; printf("\n")}' > ../../cwvec/test/dep_index.wembed
 ```
