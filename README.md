@@ -17,6 +17,7 @@ The ELF file cwvec can process two types of corpus:
   thats a pretty picture .
   
   Each line of an annotated corpus should be in the following format:
+		
   id<TAB>word_form<TAB>contexts_ids<TAB>contextual_features
 
 'id' is an integer stating the position of a word in a sentence. It starts at 1
@@ -26,10 +27,15 @@ The ELF file cwvec can process two types of corpus:
 
 An example of an annotated corpus is: 
 1       thats   4       that,NOUN,NNS,nsubj
+
 2       a       4       a,DET,DT,det
+
 3       pretty  4       pretty,ADJ,JJ,amod
+
 4       picture 0       picture,NOUN,NN,root
+
 5       .       4       .,PUNCT,.,punct
+
 
 Note that the delimiter between the columns should be TAB.
 
