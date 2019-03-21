@@ -106,7 +106,7 @@ If you are a python user import `princ_wvec` and contsruct an object based on th
 
 These are basically done in the file `pwvec/python/pwvec.py`.
  
-At this stage, the embeddings are in the file `dep_index.bin`. It should have the same number of lines as the vocabulary file `dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
+At this stage, the embeddings are in the file `dep_index.wvec`. It should have the same number of lines as the vocabulary file `dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
 
 ```bash
 paste ../../cwvec/test/dep_index.txt.vcb ../../cwvec/test/dep_index.wvec |\
