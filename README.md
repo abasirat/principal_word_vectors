@@ -1,7 +1,7 @@
 # Principal Word Vectors
 
 <strong>[Principal Word Vectors](http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866)</strong> refer to a set of word vectors (word embeddings) that are built through performing a principal component analysis on a transformed contextual matrix (also known as co-occurrence matrix).
-The codes in this repository train a set of word embeddings from both raw and annotated corpora with different types of context including bag-of-words, position-of-words, and indexed context which enables the tool to process an arbitrary context. 
+The codes in this repository train a set of principal word vectors from both raw and annotated corpora with different types of context including bag-of-words, position-of-words, and indexed context which enables the tool to process an arbitrary context. 
 The codes are tested on `Linux` and `Mac`. The requirements are 
   * A `C` compiler (e.g., `gcc`) to compile the codes in the directory `cwvec`. There is a `Makefile` in this directory for this aim. 
   * Either `octave` or `python3` to run the codes in the directory `pwvec`. 
