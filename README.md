@@ -1,13 +1,22 @@
 # Principal Word Vectors
 
 <strong>[Principal Word Vectors](http://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-353866)</strong> refer to a set of word vectors (word embeddings) that are built through performing a principal component analysis on a transformed contextual matrix (also known as co-occurrence matrix).
-The directory `cwvec` (contextual word vectors) contains codes to construct a contextual matrix. 
-Change your directory to `cwvec` and type `make`
+The codes are tested on `Linux` and `Mac`. You need a `C` compiler to compile the codes in the directory `cwvec`. There is a `Makefile` in this directory for this aim. You also need either `octave` or `python3` to run the codes in the directory `pwvec`. 
+Before running the program, change your directory to `cwvec` and type `make`
 
 ```bash
 cd cwvec
 make
 ```
+ The bash script `princ_wvec.sh` provides you with some parameters that can be set to train a set of word embeddings. 
+Modify the parameters in this file in your desired way and type
+
+```bash
+bash princ_wvec.sh
+```
+
+We explain the main steps of `princ_wvec.sh` in such a way that you can train the embeddings step-by-step. 
+The directory `cwvec` (contextual word vectors) contains codes to construct a contextual matrix. 
 
 You should have two executable files in the directory cwvec/build
   * `cwvec`: to build a contextual matrix
@@ -90,6 +99,8 @@ If you are a python user import `princ_wvec` and contsruct an object based on th
  import princ_wvec as pwvec
  princ_wvec = pwvec.PrincipalWordVector(cooc_file='../../cwvec/test/dep_index.bin', embeddings_file='../../cwvec/test/dep_index.wvec')
  ```
+
+These are basically done in the file `pwvec/python/pwvec.py`.
  
 At this stage, the embeddings are in the file `dep_index.bin`. It should have the same number of lines as the vocabulary file `dep_index.txt.vcb`. The lines of these two files are aligned to each other. If we want a single file with both words and vectors, we should merge (`paste`) these two files. 
 
