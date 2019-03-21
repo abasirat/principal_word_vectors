@@ -4,7 +4,7 @@
 The codes in this repository train a set of principal word vectors from both raw and annotated corpora with different types of context including bag-of-words, position-of-words, and indexed context which enables the tool to process an arbitrary context. 
 The codes are tested on `Linux` and `Mac`. The requirements are 
   * A `C` compiler (e.g., `gcc`) to compile the codes in the directory `cwvec`. There is a `Makefile` in this directory for this aim. 
-  * Either `octave` or `python3` to run the codes in the directory `pwvec`. 
+  * Either `octave` or `python3` (with `numpy` and `scipy`) to run the codes in the directory `pwvec`. 
 
 Before running the program, change your directory to `cwvec` and type `make`
 
