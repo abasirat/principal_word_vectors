@@ -59,12 +59,14 @@ class MatrixTransformer :
     T = A.sum()
 
     phi = sparse.eye(nr)
-    diag = 1.0 / np.array(A.sum(1)).flatten() 
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(1)).flatten()
     diag[diag == np.inf] = 0
     phi.setdiag(diag) 
 
     omega = sparse.eye(nc)
-    diag = 1.0 / np.array(A.sum(2)).flatten() 
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(2)).flatten() 
     diag[diag == np.inf] = 0
     omega.setdiag(diag) 
     

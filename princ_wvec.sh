@@ -6,22 +6,23 @@
 #
 #
 
-CORPUS=./cwvec/test/dep_index.txt
+DATA_PREFIX=./cwvec/test/raw # dep_index
+CORPUS=${DATA_PREFIX}.txt
 
-CMAT=./cwvec/test/dep_index.bin
-WORD_VECTORS=./cwvec/test/dep_index.wvec
-EMBEDDINGS=./cwvec/test/dep_index.wembed
+CMAT=${DATA_PREFIX}.bin
+WORD_VECTORS=${DATA_PREFIX}.wvec
+EMBEDDINGS=${DATA_PREFIX}.wembed
 
-CORPUS_TYPE=annotated
-CONTEXT_TYPE=indexed
+CORPUS_TYPE=raw # or annotated
+CONTEXT_TYPE=bow # or pow or indexed
 
 MEM=4
 
-VOCAB=${CORPUS}.vcb
+VOCAB=${DATA_PREFIX}.vcb
 MIN_VCOUNT=100
 
-FEATURE=${CORPUS}.feat
-MIN_FCOUNT=100
+FEATURE=${DATA_PREFIX}.feat
+#MIN_FCOUNT=100 # only with annotated corpora
 
 CWVEC=cwvec/build/cwvec
 PWVEC=pwvec/python/pwvec.py
@@ -30,10 +31,15 @@ $CWVEC --input $CORPUS --output $CMAT \
   --corpus-type $CORPUS_TYPE \
   --context-type $CONTEXT_TYPE \
   --vocab $VOCAB --min-vcount $MIN_VCOUNT \
-  --feature $FEATURE --min-fcount $MIN_FCOUNT \
+  --feature $FEATURE  \
+  --normalize \
   --max-memory $MEM --verbose
 
+if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
+
 python3 $PWVEC $CMAT $WORD_VECTORS
+if [ $? -ne 0 ]; then echo "error while running pwvec "; fi
 
 paste $VOCAB $WORD_VECTORS |\
     awk '{printf($1) ; for (i=3;i<=NF;i++) printf(" %s", $i) ; printf("\n")}' > $EMBEDDINGS
+if [ $? -ne 0 ]; then echo "error while pasting "; fi
