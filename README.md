@@ -55,7 +55,7 @@ An example of an annotated corpus is:
 5	.	4	.,PUNCT,.,punct
 ```
 
-Note that the delimiter between the columns should be TAB.
+Note that the delimiter between the columns should be TAB. The python code in `conllu2context.py` can be used to convert a CoNLL-U format file to an annotated corpus as described above.
 
 cwvec has the following options:
 
