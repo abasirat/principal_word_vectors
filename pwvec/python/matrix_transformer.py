@@ -23,7 +23,7 @@ class MatrixTransformer :
   def entropy_feature_weight(self, A) :
     [nr,nc] = A.shape
  
-    diag = 1.0 / np.array(A.sum(1)).flatten() 
+    diag = 1.0 / np.array(A.sum(0)).flatten() 
     diag[diag == np.inf] = 0
     pr = sparse.diags(diag) 
 
@@ -32,7 +32,7 @@ class MatrixTransformer :
     logP = copy.deepcopy(P)
     logP.data = np.log(logP.data)
     
-    ent = -(P.multiply(logP)).sum(1)
+    ent = -(P.multiply(logP)).sum(0)
     mean = np.mean(ent)
     var = np.var(ent)
     #weight = np.multiply(pr.diagonal().reshape([nr,1]) , np.exp(-(ent - mean)/(2*var)))
@@ -44,7 +44,7 @@ class MatrixTransformer :
   def frequency_feature_weight(self, A) :
     [nr,nc] = A.shape
  
-    weight = np.array(A.sum(1)).flatten() 
+    weight = np.array(A.sum(0)).flatten() 
 
     return weight
 
@@ -60,13 +60,13 @@ class MatrixTransformer :
 
     phi = sparse.eye(nr)
     with np.errstate(divide='ignore'):
-      diag = 1.0 / np.array(A.sum(1)).flatten()
+      diag = 1.0 / np.array(A.sum(0)).flatten()
     diag[diag == np.inf] = 0
     phi.setdiag(diag) 
 
     omega = sparse.eye(nc)
     with np.errstate(divide='ignore'):
-      diag = 1.0 / np.array(A.sum(2)).flatten() 
+      diag = 1.0 / np.array(A.sum(1)).flatten() 
     diag[diag == np.inf] = 0
     omega.setdiag(diag) 
     

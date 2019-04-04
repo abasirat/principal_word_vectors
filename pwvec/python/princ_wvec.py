@@ -80,7 +80,7 @@ class PrincipalWordVector :
       if h == 0 :
           cooc = tmp
       else :
-          cooc = sp.sparse.vstack(cooc, tmp) 
+          cooc = sp.sparse.vstack([cooc, tmp]) 
 
     return cooc
 

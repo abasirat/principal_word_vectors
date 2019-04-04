@@ -10,5 +10,6 @@ import princ_wvec as pwvec
 
 cooc_file=sys.argv[1]
 emb_file=sys.argv[2]
+feature_selection=sys.argv[3]
 
-embeddings = pwvec.PrincipalWordVector(cooc_file, emb_file)
+embeddings = pwvec.PrincipalWordVector(cooc_file, emb_file, feature_selection=feature_selection)

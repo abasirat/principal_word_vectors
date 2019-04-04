@@ -27,6 +27,8 @@ FEATURE=${DATA_PREFIX}.feat
 CWVEC=cwvec/build/cwvec
 PWVEC=pwvec/python/pwvec.py
 
+FEATURE_SELECTION=frequency # or entropy
+
 $CWVEC --input $CORPUS --output $CMAT \
   --corpus-type $CORPUS_TYPE \
   --context-type $CONTEXT_TYPE \
@@ -37,7 +39,7 @@ $CWVEC --input $CORPUS --output $CMAT \
 
 if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
 
-python3 $PWVEC $CMAT $WORD_VECTORS
+python3 $PWVEC $CMAT $WORD_VECTORS $FEATURE_SELECTION
 if [ $? -ne 0 ]; then echo "error while running pwvec "; fi
 
 paste $VOCAB $WORD_VECTORS |\
