@@ -14,6 +14,7 @@ infile = sys.argv[1]
 
 AND = "_"
 OR = ","
+LOWER_CASE=1
 
 with open(infile,'r') as fp :
   line = fp.readline().rstrip() 
@@ -32,6 +33,9 @@ with open(infile,'r') as fp :
         feat = pos + AND + drel 
         if ipid > 0 :
           feat += AND + items[int(pid)-1][2] + AND + items[int(pid)-1][4]
+
+        if LOWER_CASE:
+          word = word.lower()
 
         print("{0}\t{1}\t{2}\t{3}".format(ID,word,pid,feat))
       items = []
