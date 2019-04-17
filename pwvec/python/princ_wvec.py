@@ -18,6 +18,7 @@ import pdb
 
 class PrincipalWordVector :
   def __init__(self, cooc_file, embeddings_file, dim=50, transformation="ppmi", max_context=None, feature_selection="frequency", context_file=None) :
+    assert(dim > 0)
     self.cooc_file = cooc_file
     try :
       self.cooc = self.load_cooccurrence_matrix()
@@ -57,11 +58,17 @@ class PrincipalWordVector :
       self.cooc = transformer.Hellinger(self.cooc)
 
     [nr,nc] = self.cooc.shape
-    assert(dim > 0 and dim <= nr)
-    self.dim = dim
+    if nr < dim :
+      print("Warning: the size of context unit set ({0}) is smaller than the number of dimensions ({1}).".format(nr,dim))
+    
+    self.dim = np.min([dim, nr])
 
     princ_wvec = rpca.RandPca(self.cooc,self.dim).princ_vec.transpose()
     assert(nc == princ_wvec.shape[0])
+
+    if nr < dim:
+      print("Warning: the last {0} elements of the vectors are set with zero".format(dim-nr))
+      princ_wvec = np.concatenate((princ_wvec, np.zeros([nc, dim - nr])), axis=1) 
 
     header=str(princ_wvec.shape[0]) + " " + str(self.dim)
     #np.savetxt(embeddings_file, princ_wvec, header=header, comments='', fmt='%.5f') 
