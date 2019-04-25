@@ -56,6 +56,8 @@ class PrincipalWordVector :
       self.cooc = transformer.ppmi(self.cooc)
     if transformation == "Hellinger" :
       self.cooc = transformer.Hellinger(self.cooc)
+    if transformation == "MaximumEntropy" :
+      self.cooc = transformer.max_entropy(self.cooc)
 
     [nr,nc] = self.cooc.shape
     if nr < dim :

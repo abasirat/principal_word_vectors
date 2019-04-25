@@ -8,6 +8,7 @@
 
 import numpy as np
 from scipy import sparse
+from scipy.optimize import minimize
 import copy
 
 import pdb
@@ -49,7 +50,7 @@ class MatrixTransformer :
     return weight
 
   def Hellinger(self, A) :
-    A.data = np.log(A.data) 
+    A.data = np.sqrt(A.data) 
     return A
 
   def ppmi(self, A) :
@@ -73,4 +74,20 @@ class MatrixTransformer :
     A = T*phi.dot(A.dot(omega)) ;
     A = A.log1p() ; # instead of max(log(A),0), we take log(A+1)
     return A
+
+  def entropy(self, A):
+    assert(sparse.issparse(A))
+    [prb, bins] = np.histogram(A.data, density=True)
+    with np.errstate(divide='ignore'):
+      log_prb = np.log(prb)/np.log(2)
+    log_prb[log_prb == np.inf] = 0
+    return -prb.dot(log_prb.T)
+
+  def max_entropy(self, A) :
+    assert(sparse.issparse(A))
+    neg_entropy = lambda x: -self.entropy(A.power(x[0]))
+    x0 = np.array([1/7])
+    res = minimize(neg_entropy, x0, method='nelder-mead', options={'xtol': 1e-8, 'disp': False})
+    print("The optimal power value is: {0:.3f} [Entropy={1:.3f}]".format(res.x[0], res.fun))
+    return A.power(res.x[0]) 
 

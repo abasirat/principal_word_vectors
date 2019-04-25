@@ -6,14 +6,14 @@
 #
 #
 
-DATA_PREFIX=./cwvec/test/raw # dep_index
+DATA_PREFIX=./cwvec/test/dep_index # raw dep_index or raw
 CORPUS=${DATA_PREFIX}.txt
 
 CMAT=${DATA_PREFIX}.bin
 WORD_VECTORS=${DATA_PREFIX}.wvec
 EMBEDDINGS=${DATA_PREFIX}.wembed
 
-CORPUS_TYPE=raw # or annotated
+CORPUS_TYPE=annotated # raw or annotated
 CONTEXT_TYPE=bow # or pow or indexed
 
 MEM=4
@@ -24,13 +24,18 @@ MIN_VCOUNT=100
 FEATURE=${DATA_PREFIX}.feat
 #MIN_FCOUNT=100 # only with annotated corpora
 
+WINDOW=2
+
 CWVEC=cwvec/build/cwvec
 PWVEC=pwvec/python/pwvec.py
 
 FEATURE_SELECTION=frequency # or entropy
 
+TRANSFORMATION=ppmi #ppmi, Hellinger, or MaximumEntropy
+
 $CWVEC --input $CORPUS --output $CMAT \
   --corpus-type $CORPUS_TYPE \
+  --window $WINDOW \
   --context-type $CONTEXT_TYPE \
   --vocab $VOCAB --min-vcount $MIN_VCOUNT \
   --feature $FEATURE  \
@@ -39,7 +44,7 @@ $CWVEC --input $CORPUS --output $CMAT \
 
 if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
 
-python3 $PWVEC $CMAT $WORD_VECTORS $FEATURE_SELECTION
+python3 $PWVEC $CMAT $WORD_VECTORS $FEATURE_SELECTION $TRANSFORMATION
 if [ $? -ne 0 ]; then echo "error while running pwvec "; fi
 
 paste $VOCAB $WORD_VECTORS |\
