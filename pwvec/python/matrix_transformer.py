@@ -86,10 +86,11 @@ class MatrixTransformer :
 
   def max_entropy(self, A) :
     assert(sparse.issparse(A))
+    A = self.ppmi(A)
     neg_entropy = lambda x: -self.entropy(A.power(x[0]))
     x0 = np.array([1/7])
     constraint = LinearConstraint(np.array([1]), np.array([0]), np.array([1]), keep_feasible=False)
     res = minimize(neg_entropy, x0, method='SLSQP', constraints=(constraint), options={'disp': False})
-    print("The optimal power value is: {0:.3f} [Entropy={1:.3f}]".format(res.x[0], res.fun))
+    print("The optimal power value is: {0:.3f} [Entropy={1:.3f}]".format(res.x[0], -res.fun))
     return A.power(res.x[0]) 
 
