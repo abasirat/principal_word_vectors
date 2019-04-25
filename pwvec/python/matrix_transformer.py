@@ -8,7 +8,7 @@
 
 import numpy as np
 from scipy import sparse
-from scipy.optimize import minimize
+from scipy.optimize import minimize, LinearConstraint
 import copy
 
 import pdb
@@ -80,14 +80,16 @@ class MatrixTransformer :
     [prb, bins] = np.histogram(A.data, density=True)
     with np.errstate(divide='ignore'):
       log_prb = np.log(prb)/np.log(2)
-    log_prb[log_prb == np.inf] = 0
-    return -prb.dot(log_prb.T)
+    log_prb[np.isinf(log_prb)] = 0
+    ent = -prb.dot(log_prb.T)
+    return ent
 
   def max_entropy(self, A) :
     assert(sparse.issparse(A))
     neg_entropy = lambda x: -self.entropy(A.power(x[0]))
     x0 = np.array([1/7])
-    res = minimize(neg_entropy, x0, method='nelder-mead', options={'xtol': 1e-8, 'disp': False})
+    constraint = LinearConstraint(np.array([1]), np.array([0]), np.array([1]), keep_feasible=False)
+    res = minimize(neg_entropy, x0, method='SLSQP', constraints=(constraint), options={'disp': False})
     print("The optimal power value is: {0:.3f} [Entropy={1:.3f}]".format(res.x[0], res.fun))
     return A.power(res.x[0]) 
 
