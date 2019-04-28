@@ -14,11 +14,14 @@
 #include <locale.h>
 #include <string.h>
 
+#include <stdio.h>
+
 #include <stdint.h>
 #define u_int32_t uint32_t
 
 #define NUMBER L"<num>" 
 #define SPACE_IN_WORD L'_' 
+#define NORMAL_BUG "<normalization_bug>" 
 #define MAX_WORD_LENGTH 1024
 
 static const u_int32_t offsetsFromUTF8[6] = {
@@ -164,6 +167,10 @@ char* normalize_token( char* token_src ) {
   // convert back to utf8
   char token_dst[MAX_WORD_LENGTH] ;
   u8_toutf8(token_dst, MAX_WORD_LENGTH + 1, (u_int32_t*)wtoken_dst) ;
+
+  if (!*token_dst)
+    // TODO: there should be a bug in ut_toucs
+    strcpy(token_dst,NORMAL_BUG) ;
   return strdup(token_dst) ;
 }
 #endif
