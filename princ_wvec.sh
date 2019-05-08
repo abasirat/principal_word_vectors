@@ -7,6 +7,10 @@
 #
 
 # before running this from the terminal for the first time
+
+# pip3 install numpy
+# pip3 install scipy 
+
 # cd cwvec
 # make
 
@@ -14,7 +18,7 @@
 # 
 
 
-DATA_PREFIX=./cwvec/test/raw # raw dep_index or raw
+DATA_PREFIX=./cwvec/test/corpus.data # raw dep_index or raw
 CORPUS=${DATA_PREFIX}.txt
 
 CMAT=${DATA_PREFIX}.bin
@@ -22,18 +26,18 @@ WORD_VECTORS=${DATA_PREFIX}.wvec
 EMBEDDINGS=${DATA_PREFIX}.wembed
 
 CORPUS_TYPE=raw # raw or annotated
-CONTEXT_TYPE=pow # or pow position-of-words or indexed, bow bag-of-words means the order does not count
+CONTEXT_TYPE=bow # or pow position-of-words or indexed, bow bag-of-words means the order does not count
 
 MEM=4
 
 VOCAB=${DATA_PREFIX}.vcb
-MIN_VCOUNT=100
+MIN_VCOUNT=10
 
 FEATURE=${DATA_PREFIX}.feat
 #MIN_FCOUNT=100 # only with annotated corpora
 
 # set +5 for words after the center, set -5 for the preceding words (e.g., I [want] an apple, I is -1
-WINDOW=5
+WINDOW=3
 
 CWVEC=cwvec/build/cwvec
 PWVEC=pwvec/python/pwvec.py
@@ -48,8 +52,9 @@ $CWVEC --input $CORPUS --output $CMAT \
   --context-type $CONTEXT_TYPE \
   --vocab $VOCAB --min-vcount $MIN_VCOUNT \
   --feature $FEATURE  \
-  --normalize \
   --max-memory $MEM --verbose
+# this line can be removed if you run on Chinese
+# --normalize \ 
 
 if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
 
