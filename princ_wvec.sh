@@ -6,7 +6,7 @@
 #
 #
 
-# before running this from the terminal
+# before running this from the terminal for the first time
 # cd cwvec
 # make
 
