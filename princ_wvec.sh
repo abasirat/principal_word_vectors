@@ -14,7 +14,7 @@ WORD_VECTORS=${DATA_PREFIX}.wvec
 EMBEDDINGS=${DATA_PREFIX}.wembed
 
 CORPUS_TYPE=raw # raw or annotated
-CONTEXT_TYPE=pow # or pow or indexed
+CONTEXT_TYPE=bow # or pow or indexed
 
 MEM=4
 
@@ -31,7 +31,7 @@ PWVEC=pwvec/python/pwvec.py
 
 FEATURE_SELECTION=frequency # or entropy
 
-TRANSFORMATION=MaximumEntropy #ppmi, Hellinger, or MaximumEntropy
+TRANSFORMATION=ppmi # Hellinger, or MaximumEntropy
 
 $CWVEC --input $CORPUS --output $CMAT \
   --corpus-type $CORPUS_TYPE \
