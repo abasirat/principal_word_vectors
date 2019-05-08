@@ -6,6 +6,14 @@
 #
 #
 
+# before running this from the terminal
+# cd cwvec
+# make
+
+# if raw, it is fine as long as the words are separated by spaces
+# 
+
+
 DATA_PREFIX=./cwvec/test/raw # raw dep_index or raw
 CORPUS=${DATA_PREFIX}.txt
 
@@ -14,7 +22,7 @@ WORD_VECTORS=${DATA_PREFIX}.wvec
 EMBEDDINGS=${DATA_PREFIX}.wembed
 
 CORPUS_TYPE=raw # raw or annotated
-CONTEXT_TYPE=pow # or pow or indexed
+CONTEXT_TYPE=pow # or pow position-of-words or indexed, bow bag-of-words means the order does not count
 
 MEM=4
 
@@ -24,6 +32,7 @@ MIN_VCOUNT=100
 FEATURE=${DATA_PREFIX}.feat
 #MIN_FCOUNT=100 # only with annotated corpora
 
+# set +5 for words after the center, set -5 for the preceding words (e.g., I [want] an apple, I is -1
 WINDOW=5
 
 CWVEC=cwvec/build/cwvec
