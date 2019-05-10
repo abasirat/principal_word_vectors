@@ -117,7 +117,7 @@ The file `dep_index.wembed` should contain a list of words and vectors (word emb
 
 # References
 
-* Basirat, A., (2018), Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
+* Basirat, A., (2018), Principal Word Vectors, Doctoral Thesis, Uppsala University. Series: Studia Linguistica Upsaliensia, ISSN 1652-1366 ; 22
 * Basirat, A., (2018), A Generalized Principal Component Analysis for Word Embedding, Basirat, A., The Seventh Swedish Language Technology Conference (SLTC), Stockholm, Sweden.
 
 
