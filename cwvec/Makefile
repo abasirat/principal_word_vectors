@@ -19,7 +19,7 @@ OBJECTS = $(OBJ)/str_norm.o $(OBJ)/hash.o $(OBJ)/matrix.o $(OBJ)/tools.o $(OBJ)/
 SUFFIXES = .c .h
 
 $(CWVEC): $(OBJECTS)
-	$(CC) -o $(BUILD)/cwvec $(CFLAGS) $(LIBS) $(OBJECTS) $(DEFINE)
+	$(CC) -o $(BUILD)/cwvec $(CFLAGS) $(OBJECTS) $(DEFINE) $(LIBS)
 
 $(OBJ)/str_norm.o: $(SRC)/str_norm.c $(INC)/str_norm.h
 	$(CC) -c -o $(OBJ)/str_norm.o $(CFLAGS) $(SRC)/str_norm.c $(DEFINE)
