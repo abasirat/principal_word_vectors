@@ -24,7 +24,7 @@ class PrincipalWordVector :
       self.cooc = self.load_cooccurrence_matrix()
     except :
       print("cannot load the cooccurrence matrix " + self.cooc_file + "\n", file=sys.stderr) 
-
+    self.cooc = self.cooc.astype('float32') 
     [nr,nc] = self.cooc.shape
 
     transformer = mt.MatrixTransformer()
@@ -52,14 +52,17 @@ class PrincipalWordVector :
       context_file = embeddings_file + '.ctx'
 
 
+    print("matrix transformation: [{0}]".format(transformation))
     if transformation == "ppmi" :
       self.cooc = transformer.ppmi(self.cooc)
     if transformation == "Hellinger" :
       self.cooc = transformer.Hellinger(self.cooc)
     if transformation == "MaximumEntropy" :
       self.cooc = transformer.max_entropy(self.cooc)
+    print("done")
 
     [nr,nc] = self.cooc.shape
+    print("final cooc size: {0}x{1}".format(nr,nc))
     if nr < dim :
       print("Warning: the size of context unit set ({0}) is smaller than the number of dimensions ({1}).".format(nr,dim))
     
