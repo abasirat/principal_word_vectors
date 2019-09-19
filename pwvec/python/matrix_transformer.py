@@ -50,8 +50,50 @@ class MatrixTransformer :
     return weight
 
   def Hellinger(self, A) :
+    A = self.colnormalize(A)
     A.data = np.sqrt(A.data) 
     return A
+
+  def normalize(self, A) :
+    [nr,nc] = A.shape
+    r = sparse.eye(nr)
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(1)).flatten() 
+    diag[diag == np.inf] = 0
+    r.setdiag(diag) 
+
+    c = sparse.eye(nc)
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(0)).flatten() 
+    diag[diag == np.inf] = 0
+    c.setdiag(diag) 
+
+    A = r.dot(A).dot(c)
+    return A
+
+  def colnormalize(self, A) :
+    [nr,nc] = A.shape
+    c = sparse.eye(nc)
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(0)).flatten() 
+    diag[diag == np.inf] = 0
+    c.setdiag(diag) 
+
+    A = A.dot(c)
+    return A
+
+  def rownormalize(self, A) :
+    [nr,nc] = A.shape
+    r = sparse.eye(nr)
+    with np.errstate(divide='ignore'):
+      diag = 1.0 / np.array(A.sum(1)).flatten() 
+    diag[diag == np.inf] = 0
+    r.setdiag(diag) 
+
+    A = r.dot(A)
+    return A
+
+
 
   def ppmi(self, A) :
     assert(sparse.issparse(A))

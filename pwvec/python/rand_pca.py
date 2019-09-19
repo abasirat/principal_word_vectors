@@ -52,6 +52,7 @@ class RandPca :
     (m,n) = A.shape
     assert(k <= m)
     [U,S,V] = self.rsvd(A, k, q, 2*k, centre)
-    return sparse.diags(S).dot(V)
+    return V
+    #return sparse.diags(S).dot(V)
 
 

@@ -59,7 +59,14 @@ class PrincipalWordVector :
       self.cooc = transformer.Hellinger(self.cooc)
     if transformation == "MaximumEntropy" :
       self.cooc = transformer.max_entropy(self.cooc)
-    print("done")
+    if transformation == "Normalize" :
+      self.cooc = transformer.normalize(self.cooc)
+    if transformation == "ColumnNormalize" :
+      self.cooc = transformer.colnormalize(self.cooc)
+    if transformation == "RowNormalize" :
+      self.cooc = transformer.rownormalize(self.cooc)
+
+
 
     [nr,nc] = self.cooc.shape
     print("final cooc size: {0}x{1}".format(nr,nc))
@@ -68,7 +75,7 @@ class PrincipalWordVector :
     
     self.dim = np.min([dim, nr])
 
-    princ_wvec = rpca.RandPca(self.cooc,self.dim).princ_vec.transpose()
+    princ_wvec = 0.1*np.sqrt(nc)*rpca.RandPca(self.cooc,self.dim,q=1).princ_vec.transpose()
     assert(nc == princ_wvec.shape[0])
 
     if nr < dim:

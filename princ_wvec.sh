@@ -6,15 +6,15 @@
 #
 #
 
-DATA_PREFIX=./cwvec/test/raw # raw dep_index or raw
-CORPUS=${DATA_PREFIX}.txt
+DATA_PREFIX=./corpus # raw dep_index or raw
+CORPUS=${DATA_PREFIX}
 
 CMAT=${DATA_PREFIX}.bin
 WORD_VECTORS=${DATA_PREFIX}.wvec
 EMBEDDINGS=${DATA_PREFIX}.wembed
 
-CORPUS_TYPE=raw # raw or annotated
-CONTEXT_TYPE=bow # or pow or indexed
+CORPUS_TYPE=annotated # raw or annotated
+CONTEXT_TYPE=bow # bow or pow or indexed
 
 MEM=4
 
@@ -24,25 +24,26 @@ MIN_VCOUNT=100
 FEATURE=${DATA_PREFIX}.feat
 #MIN_FCOUNT=100 # only with annotated corpora
 
-WINDOW=5
+WINDOW=1
 
 CWVEC=cwvec/build/cwvec
 PWVEC=pwvec/python/pwvec.py
 
 FEATURE_SELECTION=frequency # or entropy
 
-TRANSFORMATION=ppmi # Hellinger, or MaximumEntropy
+TRANSFORMATION=Hellinger # identity, ppmi, Hellinger, Normalize, ColumnNormalize, RowNormalize, or MaximumEntropy
 
-$CWVEC --input $CORPUS --output $CMAT \
-  --corpus-type $CORPUS_TYPE \
-  --window $WINDOW \
-  --context-type $CONTEXT_TYPE \
-  --vocab $VOCAB --min-vcount $MIN_VCOUNT \
-  --feature $FEATURE  \
-  --normalize \
-  --max-memory $MEM --verbose
+#$CWVEC --input $CORPUS --output $CMAT \
+#  --corpus-type $CORPUS_TYPE \
+#  --window $WINDOW \
+#  --context-type $CONTEXT_TYPE \
+#  --vocab $VOCAB --min-vcount $MIN_VCOUNT \
+#  --feature $FEATURE  \
+#  --symmetric \
+#  --normalize \
+#  --max-memory $MEM --verbose
 
-if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
+#if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
 
 python3 $PWVEC $CMAT $WORD_VECTORS $FEATURE_SELECTION $TRANSFORMATION
 if [ $? -ne 0 ]; then echo "error while running pwvec "; fi
