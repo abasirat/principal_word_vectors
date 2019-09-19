@@ -33,17 +33,17 @@ FEATURE_SELECTION=frequency # or entropy
 
 TRANSFORMATION=Hellinger # identity, ppmi, Hellinger, Normalize, ColumnNormalize, RowNormalize, or MaximumEntropy
 
-#$CWVEC --input $CORPUS --output $CMAT \
-#  --corpus-type $CORPUS_TYPE \
-#  --window $WINDOW \
-#  --context-type $CONTEXT_TYPE \
-#  --vocab $VOCAB --min-vcount $MIN_VCOUNT \
-#  --feature $FEATURE  \
-#  --symmetric \
-#  --normalize \
-#  --max-memory $MEM --verbose
+$CWVEC --input $CORPUS --output $CMAT \
+  --corpus-type $CORPUS_TYPE \
+  --window $WINDOW \
+  --context-type $CONTEXT_TYPE \
+  --vocab $VOCAB --min-vcount $MIN_VCOUNT \
+  --feature $FEATURE  \
+  --symmetric \
+  --normalize \
+  --max-memory $MEM --verbose
 
-#if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
+if [ $? -ne 0 ]; then echo "error while running cwvec "; fi
 
 python3 $PWVEC $CMAT $WORD_VECTORS $FEATURE_SELECTION $TRANSFORMATION
 if [ $? -ne 0 ]; then echo "error while running pwvec "; fi
