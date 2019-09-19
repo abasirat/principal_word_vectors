@@ -30,9 +30,10 @@ with open(infile,'r') as fp :
         ID,word,pos,pid,drel = item
         ipid = int(pid)
 
-        feat = pos + AND + drel 
+        feat = pos + OR + drel 
         if ipid > 0 :
-          feat += AND + items[int(pid)-1][2] + AND + items[int(pid)-1][4]
+          PID,Pword,Ppos,Ppid,Pdrel = items[ipid-1]
+          feat += OR + Ppos + OR + pos + AND + drel + AND + Ppos
 
         if LOWER_CASE:
           word = word.lower()
